@@ -161,15 +161,15 @@ MEDIA_ROOT= os.path.join(BASE_DIR, "media")
 MEDIA_URLS="/MEDIA/"
 
 CLOUDINARY_STORAGE = { 
-                      'CLOUD_NAME': 'dvrf56dpr', 
-                      'API_KEY': '931614949693561', 
-                      'API_SECRET': '3GemJ5mbbtBYWx9grlm0cziX-l4', } 
+                      'CLOUD_NAME': config('CLOUD_NAME'), 
+                      'API_KEY': config('API_KEY'), 
+                      'API_SECRET': config('API_SECRET'), } 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage' 
 
 import cloudinary 
 cloudinary.config(
-    cloud_name="dvrf56dpr",
-    api_key="931614949693561", 
-    api_secret="3GemJ5mbbtBYWx9grlm0cziX-l4", 
+    cloud_name= config('CLOUD_NAME'),
+    api_key=config('API_KEY'), 
+    api_secret=config('API_SECRET'), 
     secure=True 
     )
