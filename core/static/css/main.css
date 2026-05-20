@@ -13,18 +13,19 @@
    ============================================================ */
 :root {
   /* Colors */
-  --ink:          #0f0f10;
-  --ink-light:    #3a3a40;
-  --ink-muted:    #7a7a85;
-  --surface:      #fafaf8;
-  --surface-alt:  #f2f1ee;
-  --border:       #e4e3df;
-  --accent:       #c8a96e;
-  --accent-dark:  #a8893a;
-  --accent-light: #f5eddc;
-  --success:      #2e8b5a;
-  --danger:       #c0392b;
+  --ink:          #1c2024; /* Soft slate-black */
+  --ink-light:    #40464c; /* Muted steel for body text */
+  --ink-muted:    #707880; /* Light slate gray */
+  --surface:      #f8fafc; /* Crisp, ultra-clean icy off-white */
+  --surface-alt:  #f0f4f8; /* Soft blue-gray for sections/cards */
+  --border:       #e1e6eb; /* Light, clean border line */
+  --accent:       #65a6ce; /* Deep, sophisticated Nordic Slate Blue */
+  --accent-dark:  #1c303c; /* Darker navy-blue for hovers */
+  --accent-light: #e8f0f5; /* Very soft ice-blue tint for badges/highlights */
+  --success:      #2a7a5c; /* Clean teal-green */
+  --danger:       #bc4746; /* Soft crimson */
   --white:        #ffffff;
+
 
   /* Shadows */
   --shadow-sm: 0 2px 8px rgba(15, 15, 16, 0.06);
@@ -203,7 +204,7 @@ img {
 /* Search bar */
 .nav-search .form-control {
   border: 1.5px solid var(--border);
-  border-radius: 50px 0 0 50px;
+  border-radius: 5px 0 0 5px;
   font-size: 13px;
   padding: 8px 18px;
   background: var(--surface);
@@ -220,7 +221,7 @@ img {
 .nav-search .btn-search {
   background: var(--accent);
   border: 1.5px solid var(--accent);
-  border-radius: 0 50px 50px 0;
+  border-radius: 0 5px 5px 0;
   padding: 8px 16px;
   color: var(--white);
   font-size: 13px;
@@ -544,7 +545,9 @@ img {
   height: 100%;
   object-fit: contain;
   padding: 16px;
+  z-index: 20;
   transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+
 }
 .product-card:hover .product-image-area img { transform: scale(1.07); }
 
@@ -561,6 +564,7 @@ img {
   text-transform: uppercase;
   padding: 4px 10px;
   border-radius: 50px;
+  z-index: 5;
 }
 .product-badge.sale { background: var(--danger); }
 .product-badge.new  { background: var(--success); }
@@ -576,6 +580,7 @@ img {
   opacity: 0;
   transform: translateX(10px);
   transition: var(--transition);
+  z-index: 5;
 }
 .product-card:hover .product-actions { opacity: 1; transform: translateX(0); }
 
@@ -714,11 +719,12 @@ img {
 .accordion-item                   { border: none !important; }
 
 .sub-cat-link {
+  background-color: red;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 7px 14px;
-  font-size: 13px;
+  font-size: 1px;
   color: var(--ink-light);
   border-radius: var(--radius);
   transition: var(--transition);

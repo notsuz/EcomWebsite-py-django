@@ -1,5 +1,7 @@
 from django.db import models
 from cloudinary.models import CloudinaryField
+from django_ckeditor_5.fields import CKEditor5Field
+
 
 # Create your models here.
 
@@ -30,7 +32,7 @@ class Proeduct(models.Model):
     name=models.CharField(max_length=200)
     category=models.ForeignKey(Category, on_delete=models.CASCADE)
     subcategory=models.ForeignKey(SubCategory, on_delete=models.CASCADE)
-    desc=models.TextField()
+    desc = CKEditor5Field('Text', config_name='extends')
     image=CloudinaryField('image')
     available=models.BooleanField(default=True)
     stock=models.PositiveSmallIntegerField()
