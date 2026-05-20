@@ -1,229 +1,414 @@
-.main{
-    height: auto;
+/* ==========================================================================
+   Design System Variable Assignments (Locked to Brand Specifications)
+   ========================================================================== */
+:root {
+    --font-serif: 'Playfair Display', Georgia, serif;
+    --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    
+    /* Brand Color Palette */
+    --ink:           #1c2024; /* Soft slate-black */
+    --ink-light:     #40464c; /* Muted steel for body text */
+    --ink-muted:     #707880; /* Light slate gray */
+    --surface:       #f8fafc; /* Crisp, ultra-clean icy off-white */
+    --surface-alt:   #f0f4f8; /* Soft blue-gray for sections/cards */
+    --border:        #e1e6eb; /* Light, clean border line */
+    --accent:        #65a6ce; /* Deep, sophisticated Nordic Slate Blue */
+    --accent-dark:   #1c303c; /* Darker navy-blue for hovers */
+    --accent-light:  #e8f0f5; /* Very soft ice-blue tint for badges/highlights */
+    --success:       #2a7a5c; /* Clean teal-green */
+    --danger:        #bc4746; /* Soft crimson */
+    --white:         #ffffff;
+
+    --transition-smooth: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ==========================================================================
+   Global Window & Layout Lock (Hides All Scrollbars)
+   ========================================================================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--surface);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    height: 100vh;
+    min-height: 100vh;
+    overflow: hidden; /* REMOVES BROWSER VERTICAL SCROLLBAR EXTENSION */
+    -webkit-font-smoothing: antialiased;
+}
+
+.auth-wrapper {
+    display: flex;
+    height: 100vh;
+    max-height: 100vh;
+    width: 100vw;
     position: relative;
+    background-color: var(--white);
+    overflow: hidden;
 }
 
-
-/* From Uiverse.io by Yaya12085 */ 
-.form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  max-width: 100%;
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 20px;
-  position: relative;
+/* Store Front Dismiss Anchor Cross Button */
+.close-store-action {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background-color: var(--white);
+    border: 1px solid var(--border);
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    cursor: pointer;
+    text-decoration: none;
+    z-index: 10;
+    transition: var(--transition-smooth);
 }
 
-.title {
-  font-size: 28px;
-  color: royalblue;
-  font-weight: 600;
-  letter-spacing: -1px;
-  position: relative;
-  display: flex;
-  align-items: center;
-  padding-left: 30px;
+.close-store-action:hover {
+    background-color: var(--ink);
+    color: var(--white);
+    transform: rotate(90deg);
+    border-color: var(--ink);
 }
 
-.title::before,.title::after {
-  position: absolute;
-  content: "";
-  height: 16px;
-  width: 16px;
-  border-radius: 50%;
-  left: 0px;
-  background-color: royalblue;
+/* ==========================================================================
+   Left Side Segment: Editorial Branding Studio Panel
+   ========================================================================== */
+.auth-media-panel {
+    flex: 1.1;
+    background-color: var(--surface-alt);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 40px;
+    height: 100vh;
+    max-height: 100vh;
+    overflow: hidden;
 }
 
-.title::before {
-  width: 18px;
-  height: 18px;
-  background-color: royalblue;
+.brand-watermark {
+    font-family: var(--font-serif);
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--ink);
 }
 
-.title::after {
-  width: 18px;
-  height: 18px;
-  animation: pulse 1s linear infinite;
+.graphic-frame {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 10px 0;
 }
 
-.message, .signin {
-  color: rgba(88, 87, 87, 0.822);
-  font-size: 14px;
+.graphic-frame img {
+    max-width: 80%;
+    max-height: 35vh; /* Scales layout images down to reserve vertical height */
+    object-fit: contain;
 }
 
-.signin {
-  text-align: center;
+.media-editorial-text {
+    max-width: 480px;
 }
 
-.signin a {
-  color: royalblue;
+.editorial-tag {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    font-weight: 600;
+    display: inline-block;
+    margin-bottom: 12px;
 }
 
-.signin a:hover {
-  text-decoration: underline royalblue;
+.editorial-title {
+    font-family: var(--font-serif);
+    font-size: 2.4rem;
+    font-weight: 400;
+    line-height: 1.3;
+    color: var(--ink);
 }
 
-.flex {
-  display: flex;
-  width: 100%;
-  gap: 6px;
+/* ==========================================================================
+   Right Side Segment: Contextual Operational Input Form Panel
+   ========================================================================== */
+.auth-form-panel {
+    flex: 0.9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 40px; /* Compressed padding gives breathing room to buttons */
+    height: 100vh;
+    max-height: 100vh;
+    background-color: var(--white);
+    overflow: hidden; /* Ensures no inner scrollbar breaks panel edges */
 }
 
-.form label {
-  position: relative;
+.form-container {
+    width: 100%;
+    max-width: 420px;
 }
 
-.form label .input {
-  width: 100%;
-  padding: 10px 10px 20px 10px;
-  outline: 0;
-  border: 1px solid rgba(105, 105, 105, 0.397);
-  border-radius: 10px;
+.form-intro {
+    margin-bottom: 20px; /* Reduced to pull inputs upwards */
 }
 
-.form label .input + span {
-  position: absolute;
-  left: 10px;
-  top: 15px;
-  color: grey;
-  font-size: 0.9em;
-  cursor: text;
-  transition: 0.3s ease;
+.welcome-heading {
+    font-family: var(--font-serif);
+    font-size: 2.2rem; /* Marginally scaled down for standard monitors */
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 6px;
 }
 
-.form label .input:placeholder-shown + span {
-  top: 15px;
-  font-size: 0.9em;
+.welcome-subtext {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    color: var(--ink-light);
 }
 
-.form label .input:focus + span,.form label .input:valid + span {
-  top: 30px;
-  font-size: 0.7em;
-  font-weight: 600;
+/* ==========================================================================
+   Input Block Layout Framework (Fixes Shifting Overlaps)
+   ========================================================================== */
+.input-structural-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 14px; /* Tightens input fields close together to save space */
+    width: 100%;
 }
 
-.form label .input:valid + span {
-  color: green;
+/* Stays permanently locked right above input field */
+.fixed-field-label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 6px;
+    letter-spacing: 0.01em;
 }
 
-.submit {
-  border: none;
-  outline: none;
-  background-color: royalblue;
-  padding: 10px;
-  border-radius: 10px;
-  color: #fff;
-  font-size: 16px;
-  transform: .3s ease;
+.premium-field {
+    width: 100%;
+    padding: 11px 14px; /* Balanced field heights prevent scrolling overflow */
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background-color: var(--surface);
+    outline: none;
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    color: var(--ink);
+    transition: var(--transition-smooth);
 }
 
-.submit:hover {
-  background-color: rgb(56, 90, 194);
+.premium-field:focus {
+    border-color: var(--accent);
+    background-color: var(--white);
+    box-shadow: 0 0 0 3px var(--accent-light);
 }
 
-@keyframes pulse {
-  from {
-    transform: scale(0.9);
-    opacity: 1;
-  }
-
-  to {
-    transform: scale(1.8);
-    opacity: 0;
-  }
+/* Browser Auto-fill style stabilization override */
+.premium-field:-webkit-autofill,
+.premium-field:-webkit-autofill:hover, 
+.premium-field:-webkit-autofill:focus {
+    -webkit-text-fill-color: var(--ink);
+    transition: background-color 5000s ease-in-out 0s;
+    box-shadow: 0 0 0 3px var(--accent-light);
 }
 
-
-
-
-/* social media button css */
-
-/* From Uiverse.io by david-mohseni */ 
-.wrapper {
-  display: inline-flex;
-  list-style: none;
-  height: 120px;
-  width: 100%;
-  padding-top: 40px;
-  font-family: "Poppins", sans-serif;
-  justify-content: center;
+/* Meta Checkboxes and Hyperlink Actions */
+.form-meta-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 16px;
+    margin-bottom: 20px;
+    font-size: 0.85rem;
 }
 
-.wrapper .icon {
-  position: relative;
-  background: #fff;
-  border-radius: 50%;
-  margin: 10px;
-  width: 50px;
-  height: 50px;
-  font-size: 18px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+.remember-me-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    color: var(--ink-light);
 }
 
-.wrapper .tooltip {
-  position: absolute;
-  top: 0;
-  font-size: 14px;
-  background: #fff;
-  color: #fff;
-  padding: 5px 8px;
-  border-radius: 5px;
-  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
-  opacity: 0;
-  pointer-events: none;
-  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+.custom-checkbox {
+    accent-color: var(--accent);
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
 }
 
-.wrapper .tooltip::before {
-  position: absolute;
-  content: "";
-  height: 8px;
-  width: 8px;
-  background: #fff;
-  bottom: -3px;
-  left: 50%;
-  transform: translate(-50%) rotate(45deg);
-  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+.lost-access-link {
+    color: var(--ink-muted);
+    text-decoration: none;
+    transition: var(--transition-smooth);
 }
 
-.wrapper .icon:hover .tooltip {
-  top: -45px;
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
+.lost-access-link:hover {
+    color: var(--ink);
+    text-decoration: underline;
 }
 
-.wrapper .icon:hover span,
-.wrapper .icon:hover .tooltip {
-  text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.1);
+/* ==========================================================================
+   Core Submissions & Anchor Actions Components
+   ========================================================================== */
+.prime-action-btn {
+    width: 100%;
+    background-color: var(--ink);
+    color: var(--white);
+    border: none;
+    padding: 14px 28px;
+    border-radius: 6px;
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: 0.95rem;
+    letter-spacing: 0.02em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: var(--transition-smooth);
 }
 
-.wrapper .facebook:hover,
-.wrapper .facebook:hover .tooltip,
-.wrapper .facebook:hover .tooltip::before {
-  background: #da122dd3;
-  color: #fff;
+.prime-action-btn:hover {
+    background-color: var(--accent-dark);
+    transform: translateY(-1px);
 }
 
-.wrapper .twitter:hover,
-.wrapper .twitter:hover .tooltip,
-.wrapper .twitter:hover .tooltip::before {
-  background: #021d2e;
-  color: #fff;
+.button-arrow {
+    transition: var(--transition-smooth);
 }
 
-.wrapper .instagram:hover,
-.wrapper .instagram:hover .tooltip,
-.wrapper .instagram:hover .tooltip::before {
-  background: #e4405f;
-  color: #fff;
+.prime-action-btn:hover .button-arrow {
+    transform: translateX(4px);
+}
+
+.auth-toggle-notice {
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--ink-muted);
+    margin-top: 16px;
+}
+
+.auth-toggle-link {
+    color: var(--ink);
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1px solid var(--ink);
+}
+
+/* Monochromatic Minimalist Grid Splitters */
+.editorial-divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 24px 0;
+}
+
+.divider-line {
+    flex: 1;
+    border-bottom: 1px solid var(--border);
+}
+
+.divider-text {
+    padding: 0 12px;
+    color: var(--ink-muted);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+/* Universal OAuth External Providers Row Integration */
+.social-engine-row {
+    display: flex;
+    gap: 12px;
+}
+
+.social-provider-card {
+    flex: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background-color: var(--white);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    text-decoration: none;
+    transition: var(--transition-smooth);
+}
+
+.social-provider-card:hover {
+    background-color: var(--surface-alt);
+    border-color: var(--accent);
+}
+
+.provider-logo {
+    font-size: 1rem;
+}
+
+/* ==========================================================================
+   Responsive Adaptability Engine (Mobile Optimization Breakpoints)
+   ========================================================================== */
+@media (max-width: 1024px) {
+    .auth-media-panel {
+        padding: 30px;
+    }
+    .auth-form-panel {
+        padding: 30px;
+    }
+    .editorial-title {
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        overflow-y: auto; /* Fallback allowance for scrolling views on tiny mobile phone displays */
+    }
+
+    .auth-wrapper {
+        flex-direction: column;
+        height: auto;
+        min-height: 100vh;
+        overflow-y: auto;
+    }
+    
+    /* Disables visual art column banner on phone views to serve immediate login panels */
+    .auth-media-panel {
+        display: none; 
+    }
+    
+    .auth-form-panel {
+        flex: 1;
+        width: 100%;
+        height: auto;
+        min-height: 100vh;
+        padding: 60px 24px 40px 24px;
+        overflow-y: auto;
+    }
+    
+    .close-store-action {
+        top: 20px;
+        right: 20px;
+    }
+    
+    .welcome-heading {
+        font-size: 2rem;
+    }
 }
