@@ -32,7 +32,7 @@
                             <div class="col-lg-6 animate-up">
                                 <span class="hero-label">New Arrival 2025</span>
                                 <h1>{{i.title}}</h1>
-                                <p>{{i.desc}}</p>
+                                <p>{{i.desc|safe|truncatewords:20}}</p>
                                 <div class="d-flex gap-3 flex-wrap">
                                     <a href="#" class="btn-primary-custom">Shop Now <i class="fas fa-arrow-right"></i></a>
                                     <a href="#" class="btn-outline-custom">View All</a>
@@ -167,8 +167,8 @@
                                 <div id="{{i.id}}" class="accordion-collapse collapse" data-bs-parent="#catAccordion">
                                     <div class="accordion-body px-0 py-1">
                                         {% for j in i.subcategory_set.all %}
-                                          
-                                        <a href="#" class="sub-cat-link"><span>{{j.title}}</span><span class="count">{{j.product_count}}</span></a>
+
+                                        <a href="?subcategory={{j.id}}#full" class="sub-cat-link"><span>{{j.title}}</span><span class="count">{{ j.proeduct_set.count }}</span></a>
                                         {% endfor %}
                                         
                                     </div>
@@ -180,56 +180,46 @@
                     </div>
 
                     <!-- Price Filter -->
+                    <form method="GET" action="{% url 'index' %}#full"#full>
                     <div class="sidebar-widget">
                         <h4 class="widget-title">Filter by Price</h4>
                         <div class="price-inputs">
                             <div class="price-input-group">
                                 <label>Min</label>
-                                <input type="number" value="0" placeholder="$0">
+                                <input type="number" name="min" value="0" placeholder="$0">
+                                <input type="hidden" name="subcategory" value="{{request.GET.subcategory}}">
                             </div>
                             <div style="color:var(--ink-muted);margin-top:20px;font-size:13px">—</div>
                             <div class="price-input-group">
                                 <label>Max</label>
-                                <input type="number" value="3000" placeholder="$3000">
+                                <input type="number" name="max" value="3000" placeholder="$3000">
                             </div>
                         </div>
-                        <button class="btn-filter">Apply Filter</button>
+                        <button type="submit" class="btn-filter">Apply Filter</button>
                     </div>
+                    </form>
 
                     <!-- Brands -->
                     <div class="sidebar-widget">
                         <h4 class="widget-title">Popular Brands</h4>
+
+                        {% for i in brands %}
                         <div class="brand-check form-check">
                             <input class="form-check-input" type="checkbox" id="b1" checked>
                             <label class="form-check-label d-flex justify-content-between w-100" for="b1">
-                                <span>Asus</span><span style="font-size:12px;color:var(--ink-muted)">(50)</span>
+                                <span>{{i.name}}</span><span style="font-size:12px;color:var(--ink-muted)">({{i.product_count}})</span>
                             </label>
                         </div>
-                        <div class="brand-check form-check">
-                            <input class="form-check-input" type="checkbox" id="b2" checked>
-                            <label class="form-check-label d-flex justify-content-between w-100" for="b2">
-                                <span>Razer</span><span style="font-size:12px;color:var(--ink-muted)">(31)</span>
-                            </label>
-                        </div>
-                        <div class="brand-check form-check">
-                            <input class="form-check-input" type="checkbox" id="b3">
-                            <label class="form-check-label d-flex justify-content-between w-100" for="b3">
-                                <span>Lenovo</span><span style="font-size:12px;color:var(--ink-muted)">(44)</span>
-                            </label>
-                        </div>
-                        <div class="brand-check form-check">
-                            <input class="form-check-input" type="checkbox" id="b4">
-                            <label class="form-check-label d-flex justify-content-between w-100" for="b4">
-                                <span>MSI</span><span style="font-size:12px;color:var(--ink-muted)">(27)</span>
-                            </label>
-                        </div>
+                        
+                        {% endfor %}
+                        
                     </div>
 
                 </aside>
             </div>
 
             <!-- Products Grid -->
-            <div class="col-lg-9">
+            <div class="col-lg-9" id="full">
                 <div class="section-header d-flex justify-content-between align-items-end">
                     <div>
                         <p class="section-tag">Handpicked</p>
@@ -258,7 +248,7 @@
                             </div>
                             <div class="product-body">
                                 <div class="brand-tag">{{i.name}}</div>
-                                <p class="product-title">{{i.desc | safe | truncatewords_html:7}}</p>
+                                <p class="product-title">{{i.desc | safe | truncatewords_html:5}}</p>
                             </div>
                             <div class="product-footer">
                                 <div class="product-price">Rs. {{i.price}} <span class="original">Rs.{{i.mark_price}}</span></div>
@@ -266,6 +256,8 @@
                             </div>
                         </div>
                     </div>
+                    {% empty %}
+                    <p class="text-center alert alert-info">No products found currently</p>
                      {% endfor %}
                     
                 </div>

@@ -719,13 +719,12 @@ img {
 .accordion-item                   { border: none !important; }
 
 .sub-cat-link {
-  background-color: red;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 7px 14px;
-  font-size: 1px;
-  color: var(--ink-light);
+  font-size: 15px;
+  color: var(--accent-dark);
   border-radius: var(--radius);
   transition: var(--transition);
 }
