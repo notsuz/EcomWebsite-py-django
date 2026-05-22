@@ -8,8 +8,8 @@
     <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators">
             {% for i in offer %}
-              
-            
+
+
             <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="{{forloop.counter0}}" class="{% if forloop.first %}
             active
               
@@ -20,8 +20,8 @@
         <div class="carousel-inner">
             <!-- Slide 1 -->
             {% for i in offer %}
-              
-           
+
+
             <div class="carousel-item {% if forloop.first %}
             active
               
@@ -34,13 +34,14 @@
                                 <h1>{{i.title}}</h1>
                                 <p>{{i.desc|safe|truncatewords:20}}</p>
                                 <div class="d-flex gap-3 flex-wrap">
-                                    <a href="#" class="btn-primary-custom">Shop Now <i class="fas fa-arrow-right"></i></a>
+                                    <a href="#" class="btn-primary-custom">Shop Now <i
+                                            class="fas fa-arrow-right"></i></a>
                                     <a href="#" class="btn-outline-custom">View All</a>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="hero-image-wrap">
-                                    <img src= "{{i.image.url}}" alt="Gaming Laptop">
+                                    <img src="{{i.image.url}}" alt="Gaming Laptop">
                                     <div class="hero-badge badge-price">
                                         <span class="big">Rs. {{i.price}}</span>
                                         Starting from
@@ -56,8 +57,8 @@
                 </div>
             </div>
 
-             {% endfor %}
-           
+            {% endfor %}
+
         </div>
 
         <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
@@ -135,8 +136,8 @@
                         <h4 class="widget-title">Categories</h4>
                         <div class="accordion" id="catAccordion">
                             {% for i in category %}
-                              
-                            
+
+
                             <div class="accordion-item">
                                 <h5 class="accordion-header">
                                     <!-- handling count with html logic -->
@@ -146,9 +147,11 @@
                                     </button> -->
 
                                     <!-- handling count with views annote -->
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#{{i.id}}">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#{{i.id}}">
                                         {{i.title}}
-                                        <span class="ms-auto badge" style="color:var(--accent-dark);font-size:14px;font-weight:600;border-radius:50px;padding:3px 8px;">({{i.count_sub}})</span>
+                                        <span class="ms-auto badge"
+                                            style="color:var(--accent-dark);font-size:14px;font-weight:600;border-radius:50px;padding:3px 8px;">({{i.count_sub}})</span>
                                     </button>
                                 </h5>
 
@@ -168,35 +171,37 @@
                                     <div class="accordion-body px-0 py-1">
                                         {% for j in i.subcategory_set.all %}
 
-                                        <a href="?subcategory={{j.id}}#full" class="sub-cat-link"><span>{{j.title}}</span><span class="count">{{ j.proeduct_set.count }}</span></a>
+                                        <a href="?subcategory={{j.id}}#full"
+                                            class="sub-cat-link"><span>{{j.title}}</span><span class="count">{{
+                                                j.proeduct_set.count }}</span></a>
                                         {% endfor %}
-                                        
+
                                     </div>
                                 </div>
                             </div>
                             {% endfor %}
-                            
+
                         </div>
                     </div>
 
                     <!-- Price Filter -->
-                    <form method="GET" action="{% url 'index' %}#full"#full>
-                    <div class="sidebar-widget">
-                        <h4 class="widget-title">Filter by Price</h4>
-                        <div class="price-inputs">
-                            <div class="price-input-group">
-                                <label>Min</label>
-                                <input type="number" name="min" value="0" placeholder="$0">
-                                <input type="hidden" name="subcategory" value="{{request.GET.subcategory}}">
+                    <form method="GET" action="{% url 'index' %}#full" #full>
+                        <div class="sidebar-widget">
+                            <h4 class="widget-title">Filter by Price</h4>
+                            <div class="price-inputs">
+                                <div class="price-input-group">
+                                    <label>Min</label>
+                                    <input type="number" name="min" value="0" placeholder="$0">
+                                    <input type="hidden" name="subcategory" value="{{request.GET.subcategory}}">
+                                </div>
+                                <div style="color:var(--ink-muted);margin-top:20px;font-size:13px">—</div>
+                                <div class="price-input-group">
+                                    <label>Max</label>
+                                    <input type="number" name="max" value="3000" placeholder="$3000">
+                                </div>
                             </div>
-                            <div style="color:var(--ink-muted);margin-top:20px;font-size:13px">—</div>
-                            <div class="price-input-group">
-                                <label>Max</label>
-                                <input type="number" name="max" value="3000" placeholder="$3000">
-                            </div>
+                            <button type="submit" class="btn-filter">Apply Filter</button>
                         </div>
-                        <button type="submit" class="btn-filter">Apply Filter</button>
-                    </div>
                     </form>
 
                     <!-- Brands -->
@@ -207,12 +212,13 @@
                         <div class="brand-check form-check">
                             <input class="form-check-input" type="checkbox" id="b1" checked>
                             <label class="form-check-label d-flex justify-content-between w-100" for="b1">
-                                <span>{{i.name}}</span><span style="font-size:12px;color:var(--ink-muted)">({{i.product_count}})</span>
+                                <span>{{i.name}}</span><span
+                                    style="font-size:12px;color:var(--ink-muted)">({{i.product_count}})</span>
                             </label>
                         </div>
-                        
+
                         {% endfor %}
-                        
+
                     </div>
 
                 </aside>
@@ -232,9 +238,9 @@
                 <div class="row g-3">
                     <!-- Product 1 -->
 
-                    {% for i in products %}
-                      
-                   
+                    {% for i in data %}
+
+
                     <div class="col-sm-6 col-xl-4">
                         <div class="product-card">
                             <div class="product-image-area">
@@ -251,16 +257,41 @@
                                 <p class="product-title">{{i.desc | safe | truncatewords_html:5}}</p>
                             </div>
                             <div class="product-footer">
-                                <div class="product-price">Rs. {{i.price}} <span class="original">Rs.{{i.mark_price}}</span></div>
+                                <div class="product-price">Rs. {{i.price}} <span
+                                        class="original">Rs.{{i.mark_price}}</span></div>
                                 <button class="btn-add-cart"><i class="fas fa-bag-shopping"></i> Add</button>
                             </div>
                         </div>
                     </div>
                     {% empty %}
                     <p class="text-center alert alert-info">No products found currently</p>
-                     {% endfor %}
-                    
+                    {% endfor %}
+
                 </div>
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-end">
+                        <li class="page-item">
+                            {% if data.has_previous %}
+                              
+                            <a class="page-link" href="?page={{data.previous_page_number}}#full">Previous</a>
+                            {% endif %}
+                        </li>
+                        {% for n in num %}
+                          
+                        <li class="page-item"><a class="page-link {% if data.number == n %} bg-info
+                              
+                            {% endif %} " href="?page={{n}}#full">{{n}}</a></li>
+                        {% endfor %}
+                        
+                        <li class="page-item">
+                            {% if  data.has_next %}
+                              
+                            
+                            <a class="page-link" href="?page={{data.next_page_number}}#full">Next</a>
+                            {% endif %}
+                        </li>
+                    </ul>
+                </nav>
             </div>
 
         </div>
@@ -275,7 +306,8 @@
             <div class="col-lg-6">
                 <p class="section-tag" style="color:rgba(200,169,110,0.7)">Flash Sale</p>
                 <h2>Up to <span>40% Off</span><br>Gaming Essentials</h2>
-                <p>Limited time offer. Don't miss out on our biggest sale of the year on premium gaming laptops and accessories.</p>
+                <p>Limited time offer. Don't miss out on our biggest sale of the year on premium gaming laptops and
+                    accessories.</p>
                 <div class="countdown">
                     <div class="count-item">
                         <span class="count-num" id="cnt-h">08</span>
@@ -295,7 +327,8 @@
                 </a>
             </div>
             <div class="col-lg-6 d-none d-lg-flex justify-content-end">
-                <img src="https://m.media-amazon.com/images/I/61Ze2wc9nyS._AC_SL1500_.jpg" alt="Sale" style="max-width:380px;filter:drop-shadow(0 20px 60px rgba(0,0,0,0.4));transform:rotate(-3deg)">
+                <img src="https://m.media-amazon.com/images/I/61Ze2wc9nyS._AC_SL1500_.jpg" alt="Sale"
+                    style="max-width:380px;filter:drop-shadow(0 20px 60px rgba(0,0,0,0.4));transform:rotate(-3deg)">
             </div>
         </div>
     </div>
@@ -314,9 +347,11 @@
                 </div>
 
                 <ul class="nav custom-tabs mb-4" id="shopTabs">
-                    <li class="nav-item"><a class="nav-link active" href="#tab-tshirt" data-bs-toggle="tab">T-Shirts</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="#tab-tshirt" data-bs-toggle="tab">T-Shirts</a>
+                    </li>
                     <li class="nav-item"><a class="nav-link" href="#tab-blazers" data-bs-toggle="tab">Blazers</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#tab-sunglass" data-bs-toggle="tab">Sunglasses</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#tab-sunglass" data-bs-toggle="tab">Sunglasses</a>
+                    </li>
                     <li class="nav-item"><a class="nav-link" href="#tab-kids" data-bs-toggle="tab">Kids</a></li>
                     <li class="nav-item"><a class="nav-link" href="#tab-polo" data-bs-toggle="tab">Polo Shirts</a></li>
                 </ul>
@@ -326,34 +361,42 @@
                         <div class="row g-3">
                             <div class="col-6 col-md-3">
                                 <div class="tab-product-card">
-                                    <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=300&q=80" alt="T-Shirt">
+                                    <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=300&q=80"
+                                        alt="T-Shirt">
                                     <div class="price">$56</div>
                                     <div class="name">Easy Polo Black Edition</div>
-                                    <button class="btn-add-cart"><i class="fas fa-bag-shopping"></i> Add to Cart</button>
+                                    <button class="btn-add-cart"><i class="fas fa-bag-shopping"></i> Add to
+                                        Cart</button>
                                 </div>
                             </div>
                             <div class="col-6 col-md-3">
                                 <div class="tab-product-card">
-                                    <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=300&q=80" alt="T-Shirt">
+                                    <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=300&q=80"
+                                        alt="T-Shirt">
                                     <div class="price">$48</div>
                                     <div class="name">Classic White Crewneck</div>
-                                    <button class="btn-add-cart"><i class="fas fa-bag-shopping"></i> Add to Cart</button>
+                                    <button class="btn-add-cart"><i class="fas fa-bag-shopping"></i> Add to
+                                        Cart</button>
                                 </div>
                             </div>
                             <div class="col-6 col-md-3">
                                 <div class="tab-product-card">
-                                    <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=300&q=80" alt="T-Shirt">
+                                    <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=300&q=80"
+                                        alt="T-Shirt">
                                     <div class="price">$64</div>
                                     <div class="name">Premium Stripe Tee</div>
-                                    <button class="btn-add-cart"><i class="fas fa-bag-shopping"></i> Add to Cart</button>
+                                    <button class="btn-add-cart"><i class="fas fa-bag-shopping"></i> Add to
+                                        Cart</button>
                                 </div>
                             </div>
                             <div class="col-6 col-md-3">
                                 <div class="tab-product-card">
-                                    <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=300&q=80" alt="T-Shirt">
+                                    <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=300&q=80"
+                                        alt="T-Shirt">
                                     <div class="price">$72</div>
                                     <div class="name">Limited Edition Graphic</div>
-                                    <button class="btn-add-cart"><i class="fas fa-bag-shopping"></i> Add to Cart</button>
+                                    <button class="btn-add-cart"><i class="fas fa-bag-shopping"></i> Add to
+                                        Cart</button>
                                 </div>
                             </div>
                         </div>
@@ -362,18 +405,22 @@
                         <div class="row g-3">
                             <div class="col-6 col-md-3">
                                 <div class="tab-product-card">
-                                    <img src="https://images.unsplash.com/photo-1591561954557-26941169b49e?w=300&q=80" alt="Blazer">
+                                    <img src="https://images.unsplash.com/photo-1591561954557-26941169b49e?w=300&q=80"
+                                        alt="Blazer">
                                     <div class="price">$189</div>
                                     <div class="name">Slim Fit Navy Blazer</div>
-                                    <button class="btn-add-cart"><i class="fas fa-bag-shopping"></i> Add to Cart</button>
+                                    <button class="btn-add-cart"><i class="fas fa-bag-shopping"></i> Add to
+                                        Cart</button>
                                 </div>
                             </div>
                             <div class="col-6 col-md-3">
                                 <div class="tab-product-card">
-                                    <img src="https://images.unsplash.com/photo-1594938298603-c8148c4b4c8a?w=300&q=80" alt="Blazer">
+                                    <img src="https://images.unsplash.com/photo-1594938298603-c8148c4b4c8a?w=300&q=80"
+                                        alt="Blazer">
                                     <div class="price">$245</div>
                                     <div class="name">Classic Black Jacket</div>
-                                    <button class="btn-add-cart"><i class="fas fa-bag-shopping"></i> Add to Cart</button>
+                                    <button class="btn-add-cart"><i class="fas fa-bag-shopping"></i> Add to
+                                        Cart</button>
                                 </div>
                             </div>
                         </div>
@@ -382,10 +429,12 @@
                         <div class="row g-3">
                             <div class="col-6 col-md-3">
                                 <div class="tab-product-card">
-                                    <img src="https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=300&q=80" alt="Sunglasses">
+                                    <img src="https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=300&q=80"
+                                        alt="Sunglasses">
                                     <div class="price">$129</div>
                                     <div class="name">Aviator Polarized</div>
-                                    <button class="btn-add-cart"><i class="fas fa-bag-shopping"></i> Add to Cart</button>
+                                    <button class="btn-add-cart"><i class="fas fa-bag-shopping"></i> Add to
+                                        Cart</button>
                                 </div>
                             </div>
                         </div>
@@ -397,10 +446,12 @@
                         <div class="row g-3">
                             <div class="col-6 col-md-3">
                                 <div class="tab-product-card">
-                                    <img src="https://images.unsplash.com/photo-1598522325074-042db73aa4e6?w=300&q=80" alt="Polo">
+                                    <img src="https://images.unsplash.com/photo-1598522325074-042db73aa4e6?w=300&q=80"
+                                        alt="Polo">
                                     <div class="price">$89</div>
                                     <div class="name">Classic Polo Navy</div>
-                                    <button class="btn-add-cart"><i class="fas fa-bag-shopping"></i> Add to Cart</button>
+                                    <button class="btn-add-cart"><i class="fas fa-bag-shopping"></i> Add to
+                                        Cart</button>
                                 </div>
                             </div>
                         </div>
@@ -422,8 +473,10 @@
                 <div class="section-line"></div>
             </div>
             <div class="rec-carousel-nav">
-                <button class="rec-nav-btn" data-bs-target="#recCarousel" data-bs-slide="prev"><i class="fas fa-chevron-left"></i></button>
-                <button class="rec-nav-btn" data-bs-target="#recCarousel" data-bs-slide="next"><i class="fas fa-chevron-right"></i></button>
+                <button class="rec-nav-btn" data-bs-target="#recCarousel" data-bs-slide="prev"><i
+                        class="fas fa-chevron-left"></i></button>
+                <button class="rec-nav-btn" data-bs-target="#recCarousel" data-bs-slide="next"><i
+                        class="fas fa-chevron-right"></i></button>
             </div>
         </div>
 
@@ -438,7 +491,8 @@
                                         <button class="action-btn"><i class="fas fa-heart"></i></button>
                                         <button class="action-btn"><i class="fas fa-eye"></i></button>
                                     </div>
-                                    <img src="https://m.media-amazon.com/images/I/81w+3k4U8PL._AC_SL1500_.jpg" alt="Rec">
+                                    <img src="https://m.media-amazon.com/images/I/81w+3k4U8PL._AC_SL1500_.jpg"
+                                        alt="Rec">
                                 </div>
                                 <div class="product-body">
                                     <div class="brand-tag">Lenovo</div>
@@ -457,7 +511,8 @@
                                         <button class="action-btn"><i class="fas fa-heart"></i></button>
                                         <button class="action-btn"><i class="fas fa-eye"></i></button>
                                     </div>
-                                    <img src="https://m.media-amazon.com/images/I/61Ze2wc9nyS._AC_SL1500_.jpg" alt="Rec">
+                                    <img src="https://m.media-amazon.com/images/I/61Ze2wc9nyS._AC_SL1500_.jpg"
+                                        alt="Rec">
                                 </div>
                                 <div class="product-body">
                                     <div class="brand-tag">MSI</div>
@@ -476,7 +531,8 @@
                                         <button class="action-btn"><i class="fas fa-heart"></i></button>
                                         <button class="action-btn"><i class="fas fa-eye"></i></button>
                                     </div>
-                                    <img src="https://m.media-amazon.com/images/I/81w+3k4U8PL._AC_SL1500_.jpg" alt="Rec">
+                                    <img src="https://m.media-amazon.com/images/I/81w+3k4U8PL._AC_SL1500_.jpg"
+                                        alt="Rec">
                                 </div>
                                 <div class="product-body">
                                     <div class="brand-tag">Asus</div>
@@ -495,7 +551,8 @@
                                         <button class="action-btn"><i class="fas fa-heart"></i></button>
                                         <button class="action-btn"><i class="fas fa-eye"></i></button>
                                     </div>
-                                    <img src="https://m.media-amazon.com/images/I/61Ze2wc9nyS._AC_SL1500_.jpg" alt="Rec">
+                                    <img src="https://m.media-amazon.com/images/I/61Ze2wc9nyS._AC_SL1500_.jpg"
+                                        alt="Rec">
                                 </div>
                                 <div class="product-body">
                                     <div class="brand-tag">Razer</div>
@@ -560,9 +617,5 @@
 </section>
 
 
-  
+
 {% endblock content %}
-
-
-
-

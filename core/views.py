@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import OfferProduct, Category, Proeduct, SubCategory, Brand
 from django.db.models import Count,Prefetch
+from django.core.paginator import Paginator
 
 # Create your views here.
 
@@ -21,16 +22,25 @@ def index(request):
         
     brands=Brand.objects.annotate(product_count=Count('proeduct'))
     
+    paginator=Paginator(products,3)
+    page_n=request.GET.get("page")
+    data=paginator.get_page(page_n)
+    total=data.paginator.num_pages
     context={
         
         "offer":offer,
         "category": category,
         "products":products,
         "brands":brands,
+        "data":data,
+        "num":[i+1 for i in range(total)] #list sth
     }
     return render(request, "core/index.html", context)
 
 
 def cart(request):
     return render(request, "core/cart.html")
+
+def product_detail(request):
+    return render(request, "core/product_detail.html")
 
