@@ -22,7 +22,7 @@ def index(request):
         
     brands=Brand.objects.annotate(product_count=Count('proeduct'))
     
-    paginator=Paginator(products,3)
+    paginator=Paginator(products,1)
     page_n=request.GET.get("page")
     data=paginator.get_page(page_n)
     total=data.paginator.num_pages
@@ -33,7 +33,8 @@ def index(request):
         "products":products,
         "brands":brands,
         "data":data,
-        "num":[i+1 for i in range(total)] #list sth
+        # "num":[i+1 for i in range(total)] #list sth
+        "num": paginator.get_elided_page_range(number=data.number, on_each_side=1, on_ends=1)
     }
     return render(request, "core/index.html", context)
 

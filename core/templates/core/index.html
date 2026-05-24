@@ -272,21 +272,24 @@
                     <ul class="pagination justify-content-end">
                         <li class="page-item">
                             {% if data.has_previous %}
-                              
+
                             <a class="page-link" href="?page={{data.previous_page_number}}#full">Previous</a>
                             {% endif %}
                         </li>
                         {% for n in num %}
-                          
+                        {% if n == data.paginator.ELLIPSIS %}
+                        <li class="page-item disabled"><span class="page-link">{{ n }}</span></li>
+                        {% else %}
                         <li class="page-item"><a class="page-link {% if data.number == n %} bg-info
                               
                             {% endif %} " href="?page={{n}}#full">{{n}}</a></li>
+                        {% endif %}
                         {% endfor %}
-                        
+
                         <li class="page-item">
-                            {% if  data.has_next %}
-                              
-                            
+                            {% if data.has_next %}
+
+
                             <a class="page-link" href="?page={{data.next_page_number}}#full">Next</a>
                             {% endif %}
                         </li>
