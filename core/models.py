@@ -61,7 +61,7 @@ class Proeduct(models.Model):
         
 class ProductImage(models.Model):
     image=CloudinaryField("images")
-    product=models.ForeignKey(Proeduct, on_delete=models.CASCADE)
+    product=models.ForeignKey(Proeduct, on_delete=models.CASCADE, related_name="images")
     
     def __str__(self):
         return self.product.name

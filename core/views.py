@@ -1,7 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import OfferProduct, Category, Proeduct, SubCategory, Brand
 from django.db.models import Count,Prefetch
 from django.core.paginator import Paginator
+from django.contrib.auth.decorators import login_required
+
 
 # Create your views here.
 
@@ -42,6 +44,12 @@ def index(request):
 def cart(request):
     return render(request, "core/cart.html")
 
-def product_detail(request):
-    return render(request, "core/product_detail.html")
+@login_required(login_url='log_in')
+def product_detail(request, id):
+    product=get_object_or_404(Proeduct,id=id)
+    
+    context={
+        'product':product
+    }
+    return render(request, "core/product_detail.html", context)
 

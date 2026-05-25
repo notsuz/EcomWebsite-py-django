@@ -240,14 +240,13 @@
 
                     {% for i in data %}
 
-
                     <div class="col-sm-6 col-xl-4">
                         <div class="product-card">
                             <div class="product-image-area">
                                 <span class="product-badge new">New</span>
                                 <div class="product-actions">
                                     <button class="action-btn"><i class="fas fa-heart"></i></button>
-                                    <button class="action-btn"><i class="fas fa-eye"></i></button>
+                                    <a href="{% url 'product_detail' i.id  %}"><button class="action-btn"><i class="fas fa-eye"></i></button></a>
                                     <button class="action-btn"><i class="fas fa-share-alt"></i></button>
                                 </div>
                                 <img src="{{i.image.url}}" alt="Lenovo Legion">
