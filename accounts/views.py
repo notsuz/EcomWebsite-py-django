@@ -10,6 +10,9 @@ from django.core.exceptions import ValidationError
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
+from .models import Profile
+from .forms import ProfileForm
+
 # import qrcode
 import re
 # import logging
@@ -103,3 +106,18 @@ def password_change(request):
             form.save()
             return redirect('log_in')
     return render(request, 'accounts/password_change.html', {'form':form})
+
+@login_required(login_url='log_in')
+def profile_dashboard(request):
+    return render(request, 'profile/dashboard.html')
+
+
+@login_required(login_url='log_in')
+def profile(request):
+    profile, created = Profile.objects.get_or_create(user=request.user)
+    form = ProfileForm(instance=profile)
+    
+    context = {
+        'form': form
+    }
+    return render(request, 'profile/profile.html', context)
