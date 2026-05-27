@@ -97,11 +97,25 @@
                     <div class="d-flex align-items-center gap-1">
                         <div class="dropdown">
                             <a href="#" class="icon-btn" data-bs-toggle="dropdown">
+                                {% if request.user.is_authenticated %}
+                                {% if request.user.profile.profile_picture %}
+
+                                <img src="{{request.user.profile.profile_picture.url}}" height="35px" width="35px"
+                                    style="border-radius: 50%; border: 3px solid rgb(47, 158, 185);" alt="Default Profile">
+
+                                {% else %}
+                                <img src="{% static 'images/avatar.png' %}" height="35px" width="35px"
+                                    style="border-radius: 50%; border: 3px solid rgb(65, 191, 223);" alt="Default Profile">
+                                {% endif%}
+                                {% else %}
                                 <i class="fas fa-user"></i>
+                                {% endif %}
+
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 {% if request.user.is_authenticated %}
-                                <li><a class="dropdown-item" href="{% url 'profile_dashboard' %}"><i class="fas fa-user-circle me-2 text-muted"
+                                <li><a class="dropdown-item" href="{% url 'profile_dashboard' %}"><i
+                                            class="fas fa-user-circle me-2 text-muted"
                                             style="font-size:11px"></i>{{request.user.username}}</a></li>
                                 {% else %}
                                 <li><a class="dropdown-item" href="#"><i class="fas fa-user-circle me-2 text-muted"

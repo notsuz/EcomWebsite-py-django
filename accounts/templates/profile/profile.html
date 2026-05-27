@@ -19,8 +19,15 @@
                     <div class="col-md-4 text-center">
                         <div class="position-relative">
 
-                            <img src="{% static 'images/profile.jpg' %}"
+                            {% if request.user.profile.profile_picture %}
+                            <img src="{{request.user.profile.profile_picture.url}}"
                                 class="avatar avatar-xxl rounded-circle shadow-lg" alt="Default Profile">
+                            {% else %}
+                              <img src="{% static 'images/avatar.png' %}"
+                                class="avatar avatar-xxl rounded-circle shadow-lg" alt="Default Profile">
+                            {% endif %}
+
+                            
 
                             <button
                                 class="btn btn-sm btn-icon-only bg-gradient-primary position-absolute bottom-0 end-0 mb-n2 me-n2 rounded-circle"
@@ -48,7 +55,7 @@
                             </li>
                             <li class="list-group-item border-0 ps-0 text-sm">
                                 <strong class="text-dark">Email:</strong> &nbsp;
-                                {{request.user.email}}
+                                {{request.user.email}} 
 
                                 <span class="badge bg-gradient-warning ms-2">Unverified</span>
 
@@ -73,9 +80,15 @@
 
                         <!-- Bio Section -->
                         <div class="mt-4">
+                            <h6 class="mb-1">DOB</h6>
+                            <p class="text-sm">
+                                {{request.user.dob|default:"not provided"}}
+                            </p>
+                        </div>
+                        <div class="mt-4">
                             <h6 class="mb-1">About Me</h6>
                             <p class="text-sm">
-                                No bio provided yet
+                                {{request.user.bio|default:"not provided"}}
                             </p>
                         </div>
                     </div>
@@ -119,10 +132,14 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form>
+            
 
-                <form action="">
+                <form method="POST" enctype="multipart/form-data" action="{% url 'profile' %}">
+                    {% csrf_token %}
+
                     {{form}}
+
+                    <input type="submit" value="close" class="btn bg-gradient-primary">
                     <input type="submit" value="Save changes" class="btn bg-gradient-primary">
                 </form>
             </form>
