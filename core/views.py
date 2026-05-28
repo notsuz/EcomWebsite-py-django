@@ -1,8 +1,9 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import OfferProduct, Category, Proeduct, SubCategory, Brand
 from django.db.models import Count,Prefetch
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
+from .forms import ReviewForm
 
 
 # Create your views here.
@@ -44,12 +45,30 @@ def index(request):
 def cart(request):
     return render(request, "core/cart.html")
 
-@login_required(login_url='log_in')
+# @login_required(login_url='log_in')
 def product_detail(request, id):
     product=get_object_or_404(Proeduct,id=id)
+    reviews=product.reviews.all()
+    
+    review_count = reviews.count()
+    
+    form=ReviewForm()
+    if request.method=="POST":
+        form=ReviewForm(data=request.POST)
+        if form.is_valid():
+            review=form.save(commit=False)
+            review.user=request.user
+            review.product=product
+            review.save()
+            return redirect('product_detail', id=product.id)    
+    
     
     context={
-        'product':product
+        'product':product,
+        'form': form,
+        "reviews":reviews,
+        'review_count': review_count,
+        'range':range(1,6)
     }
     return render(request, "core/product_detail.html", context)
 

@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-  
+
 
 
 
@@ -21,6 +21,8 @@
 <link rel="stylesheet" type="text/css"
     href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 
 <link rel="stylesheet" href="{% static 'css/product_detail.css' %}">
 
@@ -35,26 +37,26 @@
                 <div id="slider" class="owl-carousel product-slider">
 
                     {% for i in product.images.all %}
-                      
-                    
+
+
                     <div class="item">
                         <img src="{{i.image.url}}" alt="Product image">
                     </div>
                     {% endfor %}
-                    
+
 
                 </div>
 
                 <!-- Thumbnail slider -->
                 <div id="thumb" class="owl-carousel product-thumb">
                     {% for i in product.images.all %}
-                      
-                    
+
+
                     <div class="item">
                         <img src="{{i.image.url}}" alt="Product image">
                     </div>
                     {% endfor %}
-                    
+
 
                 </div>
             </div>
@@ -78,7 +80,8 @@
                             </div>
                             <span>3 Reviews</span>
                         </div>
-                        <div class="product-price-discount"><span>Rs. {{product.price}}</span><span class="line-through">Rs. {{product.mark_price}}</span>
+                        <div class="product-price-discount"><span>Rs. {{product.price}}</span><span
+                                class="line-through">Rs. {{product.mark_price}}</span>
                         </div>
                     </div>
                     <p>{{product.desc|safe}}</p>
@@ -120,8 +123,11 @@
                         aria-controls="description" aria-selected="true">Description</a>
                 </li>
                 <li class="nav-item">
+                      
+                    
                     <a class="nav-link" id="review-tab" data-toggle="tab" href="#review" role="tab"
-                        aria-controls="review" aria-selected="false">Reviews (0)</a>
+                        aria-controls="review" aria-selected="false">Reviews ({{review_count}})</a>
+                 
                 </li>
             </ul>
             <div class="tab-content" id="myTabContent">
@@ -138,75 +144,40 @@
                     <div class="review-heading">REVIEWS</div>
                     <div class="reviews-list">
                         <!-- Review 1 -->
+                        {% for review in reviews %}
+
+                        
                         <div class="review-card">
                             <div class="review-header">
-                                <div class="reviewer-avatar" style="background:#3B6FA0">MR</div>
+                                <div class="reviewer-avatar text-uppercase" style="background:#3B6FA0">{{review.user.first_name|slice:"1"}} {{review.user.last_name|slice:"1"}}</div>
                                 <div class="reviewer-info">
-                                    <div class="reviewer-name">Marcus R.</div>
-                                    <div class="review-date">March 12, 2026 · Verified Purchase</div>
+                                    <div class="reviewer-name">{{review.user.username}}</div>
+                                    <div class="review-date">{{review.created_at}}· Verified Purchase</div>
                                 </div>
                             </div>
                             <div class="review-stars">
-                                <svg viewBox="0 0 20 20" fill="#D4A853" width="14" height="14">
-                                    <path d="M10 1l2.4 6.6H19l-5.4 4 2 6.4L10 14l-5.6 4 2-6.4L1 7.6h6.6z" />
-                                </svg>
-                                <svg viewBox="0 0 20 20" fill="#D4A853" width="14" height="14">
-                                    <path d="M10 1l2.4 6.6H19l-5.4 4 2 6.4L10 14l-5.6 4 2-6.4L1 7.6h6.6z" />
-                                </svg>
-                                <svg viewBox="0 0 20 20" fill="#D4A853" width="14" height="14">
-                                    <path d="M10 1l2.4 6.6H19l-5.4 4 2 6.4L10 14l-5.6 4 2-6.4L1 7.6h6.6z" />
-                                </svg>
-                                <svg viewBox="0 0 20 20" fill="#D4A853" width="14" height="14">
-                                    <path d="M10 1l2.4 6.6H19l-5.4 4 2 6.4L10 14l-5.6 4 2-6.4L1 7.6h6.6z" />
-                                </svg>
-                                <svg viewBox="0 0 20 20" fill="#D4A853" width="14" height="14">
-                                    <path d="M10 1l2.4 6.6H19l-5.4 4 2 6.4L10 14l-5.6 4 2-6.4L1 7.6h6.6z" />
-                                </svg>
+                                {% for i in range %}
+                                <i class="fa {% if review.rating > i %}
+                                    fa-star {% else %} fa-star-o 
+                                {% endif %} text-warning"></i>
+                                  
+                                {% endfor %}
                             </div>
-                            <p class="review-body">Replaced my MacBook Pro with this and have zero regrets. The OLED
-                                display is simply stunning for photo editing — colours are dead accurate. Battery life
-                                is solid at around 9–10 hours of real use.</p>
+                            <p class="review-body">{{review.feedback}}.</p>
                             <span class="review-tag" style="background:#F0FBF4;color:#2E7D52">Recommended</span>
                         </div>
 
-                        <!-- Review 2 -->
-                        <div class="review-card">
-                            <div class="review-header">
-                                <div class="reviewer-avatar" style="background:#C9572A">SP</div>
-                                <div class="reviewer-info">
-                                    <div class="reviewer-name">Sara P.</div>
-                                    <div class="review-date">February 28, 2026 · Verified Purchase</div>
-                                </div>
-                            </div>
-                            <div class="review-stars">
-                                <svg viewBox="0 0 20 20" fill="#D4A853" width="14" height="14">
-                                    <path d="M10 1l2.4 6.6H19l-5.4 4 2 6.4L10 14l-5.6 4 2-6.4L1 7.6h6.6z" />
-                                </svg>
-                                <svg viewBox="0 0 20 20" fill="#D4A853" width="14" height="14">
-                                    <path d="M10 1l2.4 6.6H19l-5.4 4 2 6.4L10 14l-5.6 4 2-6.4L1 7.6h6.6z" />
-                                </svg>
-                                <svg viewBox="0 0 20 20" fill="#D4A853" width="14" height="14">
-                                    <path d="M10 1l2.4 6.6H19l-5.4 4 2 6.4L10 14l-5.6 4 2-6.4L1 7.6h6.6z" />
-                                </svg>
-                                <svg viewBox="0 0 20 20" fill="#D4A853" width="14" height="14">
-                                    <path d="M10 1l2.4 6.6H19l-5.4 4 2 6.4L10 14l-5.6 4 2-6.4L1 7.6h6.6z" />
-                                </svg>
-                                <svg viewBox="0 0 20 20" fill="#E8E4DF" width="14" height="14">
-                                    <path d="M10 1l2.4 6.6H19l-5.4 4 2 6.4L10 14l-5.6 4 2-6.4L1 7.6h6.6z" />
-                                </svg>
-                            </div>
-                            <p class="review-body">Great machine overall. Rendering times in Blender are impressively
-                                fast for a laptop this thin. The fan can get loud under heavy GPU load — that's my only
-                                complaint. Build quality feels premium.</p>
-                            <span class="review-tag" style="background:#FFF8F0;color:#A0522D">Good</span>
-                        </div>
+                        {% endfor %}
+
                     </div>
-                    <form class="review-form">
+                    {% if request.user.is_authenticated %}
+                    <form class="review-form" method="POST" action="">
+                        {% csrf_token %}
                         <div class="form-group">
                             <label>Your rating</label>
                             <div class="reviews-counter">
                                 <div class="rate" id="star-container">
-                                    {% for i in "12345" %}
+                                    {% for i in range %}
                                     <i class="fa fa-star star" data-value="{{ i }}"></i>
                                     {% endfor %}
                                 </div>
@@ -215,22 +186,16 @@
                         </div>
                         <div class="form-group">
                             <label>Your message</label>
-                            <textarea class="form-control" rows="10"></textarea>
+                            <textarea name="feedback" class="form-control" rows="10"></textarea>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input type="text" name="" class="form-control" placeholder="Name*">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input type="text" name="" class="form-control" placeholder="Email Id*">
-                                </div>
-                            </div>
-                        </div>
+
                         <button class="round-black-btn">Submit Review</button>
                     </form>
+                    {% else %}
+
+                    <p class="text-center alert alert-info">Login in other to Review the product</p>
+                    <a href="{% url 'log_in' %}"><button class="btn btn-info">Login</button></a>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -246,8 +211,6 @@
     integrity="	sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"></script>
 
-    <script src="{% static 'js/product_detail.js' %}"></script>
+<script src="{% static 'js/product_detail.js' %}"></script>
 
 {% endblock content %}
-
-

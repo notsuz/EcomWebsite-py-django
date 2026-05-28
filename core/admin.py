@@ -6,6 +6,8 @@ admin.site.register(OfferProduct)
 admin.site.register(Category)
 admin.site.register(SubCategory)
 admin.site.register(Brand)
+admin.site.register(Review)
+
 
 class ProductImageAdmin(admin.TabularInline):
     model=ProductImage
