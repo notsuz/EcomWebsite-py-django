@@ -56,7 +56,7 @@ def product_detail(request, id):
     if request.method=="POST":
         form=ReviewForm(data=request.POST)
         if form.is_valid():
-            review=form.save(commit=False)
+            review=form.save(commit=False) #delays the submission
             review.user=request.user
             review.product=product
             review.save()
