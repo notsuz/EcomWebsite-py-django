@@ -1,9 +1,11 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import OfferProduct, Category, Proeduct, SubCategory, Brand
-from django.db.models import Count,Prefetch
+from django.db.models import Count,Prefetch,Avg
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 from .forms import ReviewForm
+from django.contrib.auth.decorators import login_required
+from cart.cart import Cart
 
 
 # Create your views here.
@@ -52,6 +54,9 @@ def product_detail(request, id):
     
     review_count = reviews.count()
     
+    avg_rating=reviews.aggregate(Avg('rating'))['rating__avg']
+    # print(avg_rating) print to know the key name
+    
     form=ReviewForm()
     if request.method=="POST":
         form=ReviewForm(data=request.POST)
@@ -68,7 +73,55 @@ def product_detail(request, id):
         'form': form,
         "reviews":reviews,
         'review_count': review_count,
-        'range':range(1,6)
+        'range':range(1,6),
+        'avg_rating':round(avg_rating)
     }
     return render(request, "core/product_detail.html", context)
 
+
+
+#cart library views
+
+
+@login_required(login_url="/users/log_in")
+def cart_add(request, id):
+    cart = Cart(request)
+    product = Proeduct.objects.get(id=id)
+    cart.add(product=product)
+    return redirect("index")
+
+
+@login_required(login_url="/users/log_in")
+def item_clear(request, id):
+    cart = Cart(request)
+    product = Proeduct.objects.get(id=id)
+    cart.remove(product)
+    return redirect("cart_detail")
+
+
+@login_required(login_url="/users/log_in")
+def item_increment(request, id):
+    cart = Cart(request)
+    product = Proeduct.objects.get(id=id)
+    cart.add(product=product)
+    return redirect("cart_detail")
+
+
+@login_required(login_url="/users/login")
+def item_decrement(request, id):
+    cart = Cart(request)
+    product = Proeduct.objects.get(id=id)
+    cart.decrement(product=product)
+    return redirect("cart_detail")
+
+
+@login_required(login_url="/users/log_in")
+def cart_clear(request):
+    cart = Cart(request)
+    cart.clear()
+    return redirect("cart_detail")
+
+
+@login_required(login_url="/users/log_in")
+def cart_detail(request):
+    return render(request, 'core/cart.html')

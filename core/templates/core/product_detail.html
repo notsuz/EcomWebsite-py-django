@@ -67,18 +67,15 @@
                         <div class="product-name">{{product.name}}</div>
                         <div class="reviews-counter">
                             <div class="rate">
-                                <input type="radio" id="star5" name="rate" value="5" checked />
-                                <label for="star5" title="text">5 stars</label>
-                                <input type="radio" id="star4" name="rate" value="4" checked />
-                                <label for="star4" title="text">4 stars</label>
-                                <input type="radio" id="star3" name="rate" value="3" checked />
-                                <label for="star3" title="text">3 stars</label>
-                                <input type="radio" id="star2" name="rate" value="2" />
-                                <label for="star2" title="text">2 stars</label>
-                                <input type="radio" id="star1" name="rate" value="1" />
-                                <label for="star1" title="text">1 star</label>
+                               {% for i in range %}
+                                <i class="fa {% if avg_rating >= i %}
+                                    fa-star {% else %} fa-star-o 
+                                {% endif %} text-warning"></i>
+                               
+                                 
+                               {% endfor %}
                             </div>
-                            <span>3 Reviews</span>
+                            <span>{{review_count}} Reviews</span>
                         </div>
                         <div class="product-price-discount"><span>Rs. {{product.price}}</span><span
                                 class="line-through">Rs. {{product.mark_price}}</span>
@@ -152,7 +149,7 @@
                             </div>
                             <div class="review-stars">
                                 {% for i in range %}
-                                <i class="fa {% if review.rating > i %}
+                                <i class="fa {% if review.rating >= i %}
                                     fa-star {% else %} fa-star-o 
                                 {% endif %} text-warning"></i>
                                   
