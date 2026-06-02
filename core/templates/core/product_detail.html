@@ -195,6 +195,60 @@
 
     </div>
 </div>
+
+<!-- recommendation section starts -->
+
+<section class="recommended-section">
+    <div class="container">
+        <div class="section-header d-flex justify-content-between align-items-end mb-4">
+            <div>
+                <p class="section-tag">You Might Like</p>
+                <h2 class="section-title">Recommended for You</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="rec-carousel-nav">
+                <button class="rec-nav-btn" data-bs-target="#recCarousel" data-bs-slide="prev"><i
+                        class="fas fa-chevron-left"></i></button>
+                <button class="rec-nav-btn" data-bs-target="#recCarousel" data-bs-slide="next"><i
+                        class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+
+        <div id="recCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="row g-3">
+                        {% for i in related_product %}
+                          
+                        
+                        <div class="col-6 col-md-4 col-lg-3">
+                            <div class="product-card">
+                                <div class="product-image-area">
+                                    <div class="product-actions">
+                                        <button class="action-btn"><i class="fas fa-heart"></i></button>
+                                        <button class="action-btn"><i class="fas fa-eye"></i></button>
+                                    </div>
+                                    <img src="{{i.image.url}}"
+                                        alt="Rec">
+                                </div>
+                                <div class="product-body">
+                                    <div class="brand-tag">{{i.name}}</div>
+                                    <p class="product-title">{{i.desc|safe|truncatewords_html:5}}</p>
+                                </div>
+                                <div class="product-footer">
+                                    <div class="product-price">$799</div>
+                                    <button class="btn-add-cart"><i class="fas fa-bag-shopping"></i> Add</button>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
     integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"

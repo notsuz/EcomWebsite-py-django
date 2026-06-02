@@ -1,0 +1,15 @@
+-----------PAYMENT INTEGRATION---------------
+
+merchant id:(product code)
+
+
+what to send?
+{amount:
+product code:
+transaction__uid:} HMAC sha256 algorithm->signature
+
+success_url:
+failure_url:
+
+smac
+secret_key/signature:

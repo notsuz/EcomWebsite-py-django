@@ -13,7 +13,7 @@ from cart.cart import Cart
 def index(request):
     offer=OfferProduct.objects.filter(is_available=True)
     category=Category.objects.annotate(count_sub=Count("subcategory")).prefetch_related(Prefetch('subcategory_set', queryset=\
-        SubCategory.objects.annotate(product_count=Count('proeduct'))))
+        SubCategory.objects.annotate(product_count=Count('proeduct')))) # annotate adds extra field in db not physically but just to display in front end
     
     sub_id=request.GET.get('subcategory')
     min=request.GET.get('min')
@@ -27,10 +27,11 @@ def index(request):
         
     brands=Brand.objects.annotate(product_count=Count('proeduct'))
     
-    paginator=Paginator(products,1)
+    paginator=Paginator(products,2)
     page_n=request.GET.get("page")
     data=paginator.get_page(page_n)
     total=data.paginator.num_pages
+    top_product=Proeduct.objects.annotate(top_rating=Avg("reviews__rating")).order_by("-top_rating")[:3]
     context={
         
         "offer":offer,
@@ -39,7 +40,8 @@ def index(request):
         "brands":brands,
         "data":data,
         # "num":[i+1 for i in range(total)] #list sth
-        "num": paginator.get_elided_page_range(number=data.number, on_each_side=1, on_ends=1)
+        "num": paginator.get_elided_page_range(number=data.number, on_each_side=1, on_ends=1),
+        'top_product':top_product
     }
     return render(request, "core/index.html", context)
 
@@ -67,6 +69,7 @@ def product_detail(request, id):
             review.save()
             return redirect('product_detail', id=product.id)    
     
+    related_product=Proeduct.objects.filter(subcategory=product.subcategory).exclude(id=product.id)
     
     context={
         'product':product,
@@ -74,10 +77,12 @@ def product_detail(request, id):
         "reviews":reviews,
         'review_count': review_count,
         'range':range(1,6),
-        'avg_rating':round(avg_rating)
+        'avg_rating':round(avg_rating) if avg_rating else 0,
+        'related_product':related_product
     }
     return render(request, "core/product_detail.html", context)
 
+    
 
 
 #cart library views

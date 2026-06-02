@@ -486,6 +486,9 @@
             <div class="carousel-inner">
                 <div class="carousel-item active">
                     <div class="row g-3">
+                        {% for i in top_product %}
+                          
+                        
                         <div class="col-6 col-md-4 col-lg-3">
                             <div class="product-card">
                                 <div class="product-image-area">
@@ -493,12 +496,12 @@
                                         <button class="action-btn"><i class="fas fa-heart"></i></button>
                                         <button class="action-btn"><i class="fas fa-eye"></i></button>
                                     </div>
-                                    <img src="https://m.media-amazon.com/images/I/81w+3k4U8PL._AC_SL1500_.jpg"
+                                    <img src="{{i.image.url}}"
                                         alt="Rec">
                                 </div>
                                 <div class="product-body">
-                                    <div class="brand-tag">Lenovo</div>
-                                    <p class="product-title">IdeaPad Gaming 3 Laptop Ryzen 5 GTX 1650</p>
+                                    <div class="brand-tag">{{i.name}}</div>
+                            <p class="product-title">{{i.desc|safe|truncatewords_html:5}}</p>
                                 </div>
                                 <div class="product-footer">
                                     <div class="product-price">$799</div>
@@ -506,66 +509,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-6 col-md-4 col-lg-3">
-                            <div class="product-card">
-                                <div class="product-image-area">
-                                    <div class="product-actions">
-                                        <button class="action-btn"><i class="fas fa-heart"></i></button>
-                                        <button class="action-btn"><i class="fas fa-eye"></i></button>
-                                    </div>
-                                    <img src="https://m.media-amazon.com/images/I/61Ze2wc9nyS._AC_SL1500_.jpg"
-                                        alt="Rec">
-                                </div>
-                                <div class="product-body">
-                                    <div class="brand-tag">MSI</div>
-                                    <p class="product-title">GF63 Thin Gaming Laptop i5 RTX 3050 8GB</p>
-                                </div>
-                                <div class="product-footer">
-                                    <div class="product-price">$949</div>
-                                    <button class="btn-add-cart"><i class="fas fa-bag-shopping"></i> Add</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-6 col-md-4 col-lg-3 d-none d-md-block">
-                            <div class="product-card">
-                                <div class="product-image-area">
-                                    <div class="product-actions">
-                                        <button class="action-btn"><i class="fas fa-heart"></i></button>
-                                        <button class="action-btn"><i class="fas fa-eye"></i></button>
-                                    </div>
-                                    <img src="https://m.media-amazon.com/images/I/81w+3k4U8PL._AC_SL1500_.jpg"
-                                        alt="Rec">
-                                </div>
-                                <div class="product-body">
-                                    <div class="brand-tag">Asus</div>
-                                    <p class="product-title">ROG Zephyrus G14 Ryzen 9 RX 6700S 16GB</p>
-                                </div>
-                                <div class="product-footer">
-                                    <div class="product-price">$1,399</div>
-                                    <button class="btn-add-cart"><i class="fas fa-bag-shopping"></i> Add</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-6 col-md-4 col-lg-3 d-none d-lg-block">
-                            <div class="product-card">
-                                <div class="product-image-area">
-                                    <div class="product-actions">
-                                        <button class="action-btn"><i class="fas fa-heart"></i></button>
-                                        <button class="action-btn"><i class="fas fa-eye"></i></button>
-                                    </div>
-                                    <img src="https://m.media-amazon.com/images/I/61Ze2wc9nyS._AC_SL1500_.jpg"
-                                        alt="Rec">
-                                </div>
-                                <div class="product-body">
-                                    <div class="brand-tag">Razer</div>
-                                    <p class="product-title">Blade 14 AMD Ryzen 9 RTX 3080 Ti 16GB 1TB</p>
-                                </div>
-                                <div class="product-footer">
-                                    <div class="product-price">$2,999</div>
-                                    <button class="btn-add-cart"><i class="fas fa-bag-shopping"></i> Add</button>
-                                </div>
-                            </div>
-                        </div>
+                        {% endfor %}
+                        
                     </div>
                 </div>
             </div>
