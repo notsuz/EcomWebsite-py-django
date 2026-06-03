@@ -98,7 +98,8 @@ def cart_add(request, id):
     cart = Cart(request)
     product = Proeduct.objects.get(id=id)
     cart.add(product=product)
-    return redirect("index")
+    return redirect("index") #wyy on index only?
+
 
 
 @login_required(login_url="/users/log_in")
