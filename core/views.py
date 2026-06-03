@@ -6,6 +6,11 @@ from django.contrib.auth.decorators import login_required
 from .forms import ReviewForm
 from django.contrib.auth.decorators import login_required
 from cart.cart import Cart
+import uuid
+
+import hmac
+import hashlib
+import base64
 
 
 # Create your views here.
@@ -127,6 +132,51 @@ def cart_clear(request):
     return redirect("cart_detail")
 
 
+def generate_signature(data, secret):
+# signed_field_names must be included in the payload
+    signed_fields = data["signed_field_names"].split(",")
+    # Create message string in exact order
+    
+    
+    message = ",".join([f"{field}={data[field]}" for field in signed_fields])
+    signature = hmac.new(
+    secret.encode("utf-8"),
+    message.encode("utf-8"),
+    hashlib.sha256
+    ).digest()
+    return base64.b64encode(signature).decode("utf-8")
+
+
 @login_required(login_url="/users/log_in")
 def cart_detail(request):
-    return render(request, 'core/cart.html')
+    cart=request.session.get('cart')
+    amount=0
+    
+    for item in cart.values():
+        amount+=item["quantity"]* float(item["price"])
+        
+    amount=round(amount,2)
+    tax_amount=round(amount*0.13,2)
+    total_amount=round(amount + tax_amount,2)
+    transaction_uuid=str(uuid.uuid4())
+    
+    secret_key = "8gBm/:&EnhH.1/q"
+    
+    data = {
+    "amount": amount,
+    "tax_amount": tax_amount,
+    "total_amount": total_amount,
+    "transaction_uuid": transaction_uuid,
+    "product_code": "EPAYTEST",
+    "product_service_charge": 0,
+    "product_delivery_charge": 0,
+    "success_url": "http://127.0.0.1:8000/esewa/success/",
+    "failure_url": "http://127.0.0.1:8000/esewa/failure/",
+    "signed_field_names": "total_amount,transaction_uuid,product_code",
+    
+    }
+    
+    data["signature"]=generate_signature(data=data, secret=secret_key)
+
+    
+    return render(request, 'core/cart.html',data)

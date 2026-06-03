@@ -226,7 +226,7 @@
                                 <div class="product-image-area">
                                     <div class="product-actions">
                                         <button class="action-btn"><i class="fas fa-heart"></i></button>
-                                        <button class="action-btn"><i class="fas fa-eye"></i></button>
+                                        <a href="{% url 'product_detail' i.id  %}"><button class="action-btn"><i class="fas fa-eye"></i></button></a>
                                     </div>
                                     <img src="{{i.image.url}}"
                                         alt="Rec">

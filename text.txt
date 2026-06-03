@@ -11,5 +11,8 @@ transaction__uid:} HMAC sha256 algorithm->signature
 success_url:
 failure_url:
 
-smac
+HMACmac
 secret_key/signature:
+
+
+-----------------------without reload-------------
