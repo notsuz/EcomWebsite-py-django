@@ -93,16 +93,23 @@ def product_detail(request, id):
 #cart library views
 
 
-@login_required(login_url="/users/log_in")
+@login_required(login_url="log_in")
 def cart_add(request, id):
     cart = Cart(request)
     product = Proeduct.objects.get(id=id)
     cart.add(product=product)
-    return redirect("index") #wyy on index only?
+    return redirect("index")
+
+# @login_required(login_url="log_in")
+# def cart_add1(request, id):
+#     cart = Cart(request)
+#     product = Proeduct.objects.get(id=id)
+#     cart.add(product=product)
+#     return redirect("product_detail")
 
 
 
-@login_required(login_url="/users/log_in")
+@login_required(login_url="log_in")
 def item_clear(request, id):
     cart = Cart(request)
     product = Proeduct.objects.get(id=id)
@@ -110,7 +117,7 @@ def item_clear(request, id):
     return redirect("cart_detail")
 
 
-@login_required(login_url="/users/log_in")
+@login_required(login_url="log_in")
 def item_increment(request, id):
     cart = Cart(request)
     product = Proeduct.objects.get(id=id)
@@ -118,7 +125,7 @@ def item_increment(request, id):
     return redirect("cart_detail")
 
 
-@login_required(login_url="/users/login")
+@login_required(login_url="login")
 def item_decrement(request, id):
     cart = Cart(request)
     product = Proeduct.objects.get(id=id)
@@ -126,7 +133,7 @@ def item_decrement(request, id):
     return redirect("cart_detail")
 
 
-@login_required(login_url="/users/log_in")
+@login_required(login_url="log_in")
 def cart_clear(request):
     cart = Cart(request)
     cart.clear()
@@ -148,14 +155,16 @@ def generate_signature(data, secret):
     return base64.b64encode(signature).decode("utf-8")
 
 
-@login_required(login_url="/users/log_in")
+@login_required(login_url="log_in")
 def cart_detail(request):
     cart=request.session.get('cart')
+    
     amount=0
     
-    for item in cart.values():
-        amount+=item["quantity"]* float(item["price"])
-        
+    if cart:
+        for item in cart.values():
+            amount+=item["quantity"]* float(item["price"])
+            
     amount=round(amount,2)
     tax_amount=round(amount*0.13,2)
     total_amount=round(amount + tax_amount,2)
@@ -171,8 +180,8 @@ def cart_detail(request):
     "product_code": "EPAYTEST",
     "product_service_charge": 0,
     "product_delivery_charge": 0,
-    "success_url": "http://127.0.0.1:8000/esewa/success/",
-    "failure_url": "http://127.0.0.1:8000/esewa/failure/",
+    "success_url": "http://127.0.0.1:8000/payments/success_url/",
+    "failure_url": "http://127.0.0.1:8000/payments/failure_url/",
     "signed_field_names": "total_amount,transaction_uuid,product_code",
     
     }

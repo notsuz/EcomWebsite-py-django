@@ -52,7 +52,8 @@ EXTERNAL_APPS = [
     'allauth.socialaccount',
     'social_django',
     'django_ckeditor_5',
-    'cart'
+    'cart',
+    'payments'
 ]
 
 INSTALLED_APPS.extend(EXTERNAL_APPS)
@@ -162,7 +163,7 @@ STATICFILES_DIRS=[
 ]
 
 MEDIA_ROOT= os.path.join(BASE_DIR, "media")
-MEDIA_URLS="/MEDIA/"
+MEDIA_URL="/media/"
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

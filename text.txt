@@ -15,4 +15,6 @@ HMACmac
 secret_key/signature:
 
 
+get_or_create -> only once done for payment
+
 -----------------------without reload-------------
