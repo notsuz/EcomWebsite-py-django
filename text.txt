@@ -16,5 +16,7 @@ secret_key/signature:
 
 
 get_or_create -> only once done for payment
+payment integration part done with esewa, left admin panel, and redirect without reloading page 
+
 
 -----------------------without reload-------------
