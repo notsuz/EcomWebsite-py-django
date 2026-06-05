@@ -45,19 +45,23 @@
 										</td>
 										<td class="cart_description">
 											<h4><a href="">{{value.name}}</a></h4>
-											<p>Web ID: 1089772</p>
+											
 										</td>
 										<td class="cart_price">
 											<p>Rs.{{value.price}}</p>
 										</td>
 										<td class="cart_quantity">
 											<div class="cart_quantity_button">
+												
 												<a class="cart_quantity_up"
 													href="{% url 'item_increment' value.product_id %}"> + </a>
 												<input class="cart_quantity_input" type="text" name="quantity"
 													value="{{value.quantity}}" autocomplete="off" size="2">
-												<a class="cart_quantity_down"
-													href="{% url 'item_decrement' value.product_id %}"> - </a>
+
+												{% if value.quantity > 1 %}
+												  
+												<a class="cart_quantity_down" href="{% url 'item_decrement' value.product_id %}"> - </a>
+												{% endif %}
 											</div>
 										</td>
 										<td class="cart_total">
@@ -81,7 +85,8 @@
 			<div class="col-sm-3">
 				<div class="total_area">
 					<ul>
-						{% with tax=cart_total_amount|multiply:0.13 %}
+						{% with tax=cart_total_amount|multiply:0.13 %} <!-- used for this particular block only-->
+						
 
 						<li>Cart Sub Total <span>Rs.{{cart_total_amount|floatformat:2}}</span></li>
 						<li>Eco Tax <span>Rs. {{tax|floatformat:2}}</span></li>

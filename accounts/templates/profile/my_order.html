@@ -6,20 +6,51 @@
 {% block page_subtitle %}Manage your account information{% endblock %}
 
 {% block maincontent %}
+
+<style>
+    .fixed-size-table {
+        table-layout: fixed;
+        /* Forces columns to respect width constraints */
+        width: 100%;
+        /* Ensures table uses full available width */
+    }
+
+    .fixed-size-table th {
+        width: 40%;
+        /* Allocates 40% width to the label column */
+        white-space: normal;
+        /* Allows labels to wrap if they are long */
+        vertical-align: top;
+        /* Aligns text to the top if wrapping occurs */
+    }
+
+    .fixed-size-table td {
+        word-wrap: break-word;
+        /* Breaks long words if necessary */
+        overflow-wrap: break-word;
+        /* Standard property for wrapping */
+        white-space: normal;
+        /* Ensures content wraps to new lines */
+        vertical-align: top;
+        /* Aligns data to the top */
+    }
+</style>
+
+
 <h2 class="text-center alert alert-info">My order list</h2>
-<div class="container">
+<!-- <div class="container">
     <div class="row">
 
         {% for order in orders %}
-          
-        
+
+
         <div class="col-4 border border-primary">
             <h4>Transaction id: {{order.transaction_uuid}}</h4>
             <p>Status: {{order.status}}</p>
 
             {% for i in order.items.all %}
-              
-            
+
+
             <div class="card" style="width: 18rem;">
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">Product name: {{i.product.name}}</li>
@@ -32,7 +63,56 @@
         </div>
         {% endfor %}
     </div>
+</div> -->
+
+<div class="container">
+    <div class="row">
+        {% for order in orders %}
+        <div class="col-4">
+            <h6>Transaction id: <span>{{order.transaction_uuid}}</span></h6>
+            <p class="fw-bold">Status: <span class="text-success">{{order.status}}</span> </p>
+
+            {% for i in order.items.all %}
+            <table class="table border border-info fixed-size-table">
+                <tbody>
+                    <tr>
+                        <th scope="row" class="bg-light">Product:</th>
+                        <td>{{i.product.name}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="bg-light">Quantity:</th>
+                        <td>{{i.quantity}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="bg-light">Price:</th>
+                        <td>Rs. {{i.price}}</td>
+                    </tr>
+                    <!-- <tr>
+                        <th scope="row" class="bg-light">Tax:</th>
+                        <td>Rs. {{i.tax}}</td>
+                    </tr> -->
+
+                </tbody>
+
+            </table>
+            {% endfor %}
+            <table class="table fixed-size-table">
+                <tbody>
+                    <tr>
+                        <th scope="row" class="bg-light">Total Price after VAT:</th>
+                        <td> Rs. {{order.total_amount}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+        </div>
+        {% endfor %}
+
+    </div>
 </div>
+<hr>
+
+
 
 
 
