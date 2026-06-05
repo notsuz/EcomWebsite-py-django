@@ -4,7 +4,8 @@ import base64
 import hashlib
 import hmac
 import json
-from .models import Transaction
+from .models import Transaction, Order, OrderItem
+
 
 # Create your views here.
 def success_esewa(request):
@@ -41,6 +42,18 @@ def success_esewa(request):
    #   print("check data",payload)          
      
      txn,created=Transaction.objects.get_or_create(transaction_uuid=payload['transaction_uuid'], transaction_code=payload['transaction_code'],product_code=payload['product_code'],total_amount=payload['total_amount'],user=request.user,status=payload['status'])
+     
+     order,created=Order.objects.get_or_create(user=request.user,transaction_uuid=payload['transaction_uuid'],total_amount=payload['total_amount'], status=payload['status'])
+     
+     cart=request.session.get("cart")
+   #   print("cart_data":, cart)
+     for item in cart.values():
+        OrderItem.objects.create(order=order, product_id=item['product_id'], price=item['price'], quantity=item['quantity'])
+        
+     request.session['cart']={}
+        
+     
+     
      return render(request, 'success_esewa.html', {'txn':txn})
 
 

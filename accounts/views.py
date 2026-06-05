@@ -12,6 +12,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
 from .models import Profile
 from .forms import ProfileForm
+from payments.models import Order
 
 # import qrcode
 import re
@@ -128,3 +129,8 @@ def profile(request):
         'form': form
     }
     return render(request, 'profile/profile.html', context)
+
+@login_required(login_url='log_in')
+def my_order(request):
+    orders=Order.objects.filter(user=request.user)
+    return render(request, 'profile/my_order.html', {'orders': orders})
