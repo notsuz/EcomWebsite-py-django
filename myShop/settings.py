@@ -34,6 +34,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -288,3 +289,44 @@ CKEDITOR_5_CONFIGS = {
 
 # Define a constant in settings.py to specify file upload permissions
 CKEDITOR_5_FILE_UPLOAD_PERMISSION = "staff"  # Possible values: "staff", "authenticated",
+
+# django jazzmin setup
+
+
+JAZZMIN_SETTINGS = {
+ "welcome_sign": "Welcome to MyShop",  
+ "login_logo": None,
+ "custom_css":'css/admin.css',
+ 'copyright': 'sujal pvt',
+
+ 
+ 
+ "topmenu_links": [
+
+        # Url that gets reversed (Permissions can be added)
+        {"name": "Home",  "url": "admin:index", "permissions": ["auth.view_user"]},
+
+        # external url that opens in a new window (Permissions can be added)
+        {"name": "Support", "url": "https://github.com/farridav/django-jazzmin/issues", "new_window": True},
+
+        # model admin to link to (Permissions checked against model)
+        {"model": "core.Category"},
+
+        # App with dropdown menu to all its models pages (Permissions checked against models)
+        {"app": "books"},
+    ],
+
+"usermenu_links": [
+        {"name": "Support", "url": "https://github.com/farridav/django-jazzmin/issues", "new_window": True},
+        {"model": "auth.user"}
+    ],
+
+"icons": {
+        "auth": "fas fa-users-cog",
+        "auth.user": "fas fa-user",
+        "auth.Group": "fas fa-users",
+    },
+
+"show_ui_builder": True,
+
+}

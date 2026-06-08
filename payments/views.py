@@ -22,7 +22,7 @@ def success_esewa(request):
      # Step 2: Verify Signature     
      try:         
         signed_fields = payload["signed_field_names"].split(",")         
-        # Build message in the order of signed_fields excluding 'signed_field_names'         
+        # Build message in the order of signed_fields excluding 'signed_field_names'
         message = ",".join([f"{field}={payload[field]}" for field in signed_fields])        
         # Use Test Secret Key        
         secret_key = "8gBm/:&EnhH.1/q"  
