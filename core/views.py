@@ -48,6 +48,8 @@ def index(request):
         "num": paginator.get_elided_page_range(number=data.number, on_each_side=1, on_ends=1),
         'top_product':top_product
     }
+    if request.headers.get('HX-request'):
+        return render(request, 'core/product.html', context)
     return render(request, "core/index.html", context)
 
 
@@ -170,7 +172,7 @@ def cart_detail(request):
     total_amount=round(amount + tax_amount,2)
     transaction_uuid=str(uuid.uuid4())
     
-    secret_key = "8gBm/:&EnhH.1/q"
+    secret_key = "8gBm/:&EnhH.1/q" #hide
     
     data = {
     "amount": amount,

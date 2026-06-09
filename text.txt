@@ -20,6 +20,20 @@ payment integration part done with esewa, left admin panel, and redirect without
 order management done, cart empty after successful payment done
 
 
------------------------without reload-------------
-
+without reload
 admin dashboard customization
+
+
+---=things to learn
+asychronous 
+middleware kasari banaune aafai le?
+api
+ci/cd pipeline --> main topics basics
+chatbot: dialogflow, nlu, botpress
+recommendation system: 
+signals:
+
+
+
+
+

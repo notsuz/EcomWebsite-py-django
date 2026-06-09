@@ -156,28 +156,28 @@
                                 </h5>
 
                                 <!-- handling count using html -->
-                                <!-- <div id="{{i.id}}" class="accordion-collapse collapse" data-bs-parent="#catAccordion">
-                                    <div class="accordion-body px-0 py-1">
-                                        {% for j in i.subcategory_set.all %}
-                                          
-                                        <a href="#" class="sub-cat-link"><span>{{j.title}}</span><span class="count">{{ j.proeduct_set.count }}</span></a>
-                                        {% endfor %}
-                                        
-                                    </div>
-                                </div> -->
-
-                                <!-- handling html using views -->
                                 <div id="{{i.id}}" class="accordion-collapse collapse" data-bs-parent="#catAccordion">
                                     <div class="accordion-body px-0 py-1">
                                         {% for j in i.subcategory_set.all %}
+                                          
+                                        <a hx-get="?subcategory={{j.id}}" hx-target="#product_container" hx-swap="innerHTML" class="sub-cat-link"><span>{{j.title}}</span><span class="count">{{ j.proeduct_set.count }}</span></a>
+                                        {% endfor %}
+                                        
+                                    </div>
+                                </div>
 
-                                        <a href="?subcategory={{j.id}}#full"
+                                <!-- handling html using views -->
+                                <!-- <div id="{{i.id}}" class="accordion-collapse collapse" data-bs-parent="#catAccordion">
+                                    <div class="accordion-body px-0 py-1">
+                                        {% for j in i.subcategory_set.all %}
+
+                                        <a hx-get="?subcategory={{j.id}}" hx-target="#product_container" hx-swap="innerHTML"
                                             class="sub-cat-link"><span>{{j.title}}</span><span class="count">{{
                                                 j.proeduct_set.count }}</span></a>
                                         {% endfor %}
 
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                             {% endfor %}
 
@@ -235,36 +235,11 @@
                     <a href="#" class="view-all-link">View All <i class="fas fa-arrow-right"></i></a>
                 </div>
 
-                <div class="row g-3">
+                <div class="row g-3" id="product_container">
                     <!-- Product 1 -->
+                     {% include "core/product.html" %}
 
-                    {% for i in data %}
-
-                    <div class="col-sm-6 col-xl-4">
-                        <div class="product-card">
-                            <div class="product-image-area">
-                                <span class="product-badge new">New</span>
-                                <div class="product-actions">
-                                    <button class="action-btn"><i class="fas fa-heart"></i></button>
-                                    <a href="{% url 'product_detail' i.id  %}"><button class="action-btn"><i class="fas fa-eye"></i></button></a>
-                                    <button class="action-btn"><i class="fas fa-share-alt"></i></button>
-                                </div>
-                                <img src="{{i.image.url}}" alt="Lenovo Legion">
-                            </div>
-                            <div class="product-body">
-                                <div class="brand-tag">{{i.name}}</div>
-                                <p class="product-title">{{i.desc | safe | truncatewords_html:5}}</p>
-                            </div>
-                            <div class="product-footer">
-                                <div class="product-price">Rs. {{i.price}} <span
-                                        class="original">Rs.{{i.mark_price}}</span></div>
-                                <a href="{% url 'cart_add' i.id %}"><button class="btn-add-cart"><i class="fas fa-bag-shopping"></i> Add</button></a>
-                            </div>
-                        </div>
-                    </div>
-                    {% empty %}
-                    <p class="text-center alert alert-info">No products found currently</p>
-                    {% endfor %}
+                    
 
                 </div>
                 <nav aria-label="Page navigation example">
